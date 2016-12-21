@@ -28,6 +28,7 @@ class Map:
                     Stuff("wood board", "rotten", True, 3, 1, 0, False, False),
                     Stuff("health potion","magic", False, .2, 5, 5, True),
                     Stuff("boots of butt kicking","spikey", True, 8),
+                    Stuff("lance of light","glowing", True, 8),
                     ]
   potentialCreature = [Creature("skeleton", "Dangerous", 2, 2),
                         Creature("dragon", "Deadly", 7, 5),
@@ -37,7 +38,10 @@ class Map:
                         Creature("toad", "evil", 3, 10),
                         Creature("troll", "dumb", 3, 15),
                         Creature("pumpkin", "grinning", 3, 5),
-                        Creature("dog", "vicious", 3, 3)
+                        Creature("dog", "vicious", 3, 3),
+                        Creature("nat", "tiny", 3, 1),
+                        Creature("nat", "medium", 3, 2),
+                        Creature("nat", "collosal", 4, 2),
                         ]
   rooms = []
 
