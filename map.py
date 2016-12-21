@@ -24,6 +24,7 @@ class Map:
                     Stuff("broad sword","shiny", True, 7),
                     Stuff("dirt", "Smelly", False, .3),
                     Stuff("gauntlet", "rusty", False, 1, 1, 0, False, True),
+                    Stuff("chestplate", "rusty", False, 3,2, 0, False, True),
                     Stuff("wood board", "rotten", True, 3, 1, 0, False, False),
                     Stuff("health potion","magic", False, .2, 5, 5, True),
                     Stuff("boots of butt kicking","spikey", True, 8),
@@ -41,7 +42,7 @@ class Map:
   rooms = []
 
   def __init__(self):
-    self.rooms = [Room() for i in range(200)];
+    self.rooms = [Room() for i in range(300)];
 
   def checkMap(self):
     for room in rooms:

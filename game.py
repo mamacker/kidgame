@@ -100,7 +100,7 @@ def fight(kid, monster):
   monsterAlive = True;
 
   #pick the strongest weapon on the kid, start with fists
-  weapon = Stuff("fists","bare", True, .1)
+  weapon = Stuff("fists","bare", True, 1)
 
   for item in kid.stuff:
     if item.isWeapon:
@@ -116,12 +116,12 @@ def fight(kid, monster):
     
     if random.randint(0,1) == 1:
       print " and hit!"
-      monster.health = monster.health - random.randint(1,weapon.damage);
+      monster.health = monster.health - random.randint(1, weapon.damage);
     else:
       print " and, ooooh noooo, miss!"
 
     time.sleep(2)
-    print "The monster has " + str(monster.health) + " health left!";
+    print "The " + monster.name +" has " + str(monster.health) + " health left!";
     time.sleep(2)
     if monster.health < 1:
       monsterAlive = False;
@@ -160,7 +160,7 @@ def fight(kid, monster):
     kid.currentRoom.contents.remove(monster)
     print "You should probably search the room!";
   else:
-    print "The monster has killed you.  So, very, very sad..."
+    print "The " + monster.name + " has killed you.  So, very, very sad..."
     points = 0;
     for item in kid.stuff:
       if item.points:
