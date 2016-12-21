@@ -18,12 +18,13 @@ class Map:
                     Stuff("gold coin","shiny", False, .2),
                     Stuff("torch","Lasts about 1 hour", False, .5),
                     Stuff("sword","rusty", True, 4),
-                    Stuff("staff","brutal", True, 3),
+                    Stuff("staff","brutal", True, 4),
                     Stuff("sword","shiny", True, 6),
                     Stuff("broad sword","chipped", True, 5),
                     Stuff("broad sword","shiny", True, 7),
                     Stuff("dirt", "Smelly", False, .3),
                     Stuff("gauntlet", "rusty", False, 1, 1, 0, False, True),
+                    Stuff("wood board", "rotten", True, 3, 1, 0, False, False),
                     Stuff("health potion","magic", False, .2, 5, 5, True),
                     Stuff("boots of butt kicking","spikey", True, 8),
                     ]
@@ -34,6 +35,7 @@ class Map:
                         Creature("glob", "slimy, acid, teenage", 10, 10),
                         Creature("toad", "evil", 3, 10),
                         Creature("troll", "dumb", 3, 15),
+                        Creature("pumpkin", "grinning", 3, 5),
                         Creature("dog", "vicious", 3, 3)
                         ]
   rooms = []
