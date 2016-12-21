@@ -10,9 +10,9 @@ class Creature:
   damage = 1
   visible = True
   treasure = None
+  dexterity = 5
 
   potentialTreasure = [
-
     Stuff("gold coin","shiny", False, .2, 1),
     Stuff("gold ring","shiny", False, .2, 2),
     Stuff("gold idol","shiny", False, .2, 3),
@@ -27,7 +27,7 @@ class Creature:
     Stuff("health potion","magic", False, .2, 5, 5, True)
   ]
 
-  def __init__(self, name, desc, damage, health = 0):
+  def __init__(self, name, desc, damage, health = 0, dexterity = 5):
     self.name = name
     self.desc = desc
     self.damage = damage

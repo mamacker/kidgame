@@ -114,7 +114,7 @@ def fight(kid, monster):
     print "You swing with " + weapon.name;
     time.sleep(2)
     
-    if random.randint(0,1) == 1:
+    if random.randint(0,10) >= monster.dexterity:
       print " and hit!"
       monster.health = monster.health - random.randint(1, weapon.damage);
     else:
@@ -135,6 +135,8 @@ def fight(kid, monster):
         print("and hits for " + str(damage) + "!!!")
         if kid.armor > 0:
           damage = damage - kid.armor;
+          if damage < 0:
+            damage = 0
           print("Your armor takes " + str(kid.armor) + " of it. You take " + str(damage) + " damage.")
         kid.health = kid.health - damage;
       else:

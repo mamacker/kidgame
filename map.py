@@ -14,7 +14,7 @@ Player = player.Player
 class Map:
   '''def __init__(self, name, desc, isWeapon, damage, points = 1, 
                 health = 0, isEdible = False, isArmor = False):'''
-  potentialStuff = [Stuff("knife", "rusty", True, 1),
+  potentialStuff = [Stuff("knife", "rusty", True, 2),
                     Stuff("gold coin","shiny", False, .2),
                     Stuff("torch","Lasts about 1 hour", False, .5),
                     Stuff("sword","rusty", True, 4),
@@ -36,12 +36,13 @@ class Map:
                         Creature("octopus", "slimy, creepy, crawly", 3, 15),
                         Creature("glob", "slimy, acid, teenage", 10, 10),
                         Creature("toad", "evil", 3, 10),
-                        Creature("troll", "dumb", 3, 15),
+                        Creature("troll", "dumb", 3, 15, 3),
                         Creature("pumpkin", "grinning", 3, 5),
-                        Creature("dog", "vicious", 3, 3),
-                        Creature("nat", "tiny", 3, 1),
-                        Creature("nat", "medium", 3, 2),
-                        Creature("nat", "collosal", 4, 2),
+                        Creature("dog", "vicious", 3, 3, 6),
+                        Creature("nat", "tiny", 3, 1, 8),
+                        Creature("nat", "medium", 3, 2, 8),
+                        Creature("nat", "collosal", 4, 2, 8),
+                        Creature("goat", "psyco", 3, 2, 10),
                         ]
   rooms = []
 
