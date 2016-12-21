@@ -30,6 +30,7 @@ class Map:
                     Stuff("boots of butt kicking","spikey", True, 8),
                     Stuff("lance of light","glowing", True, 8),
                     Stuff("bucket","stupid", True, 1),
+                    Stuff("toothbrush of doom","scary", True, 5),
                     ]
   potentialCreature = [Creature("skeleton", "Dangerous", 2, 2),
                         Creature("dragon", "Deadly", 7, 5),
@@ -88,7 +89,7 @@ class Map:
         self.rooms[0] = Room();
         self.rooms[0].name = "start"
         self.rooms[0].desc = potentialDescriptions[random.randint(0, len(potentialDescriptions) -1)]
-        self.rooms[0].contents = [copy.deepcopy(self.potentialStuff[0])];
+        self.rooms[0].contents = [copy.deepcopy(self.potentialStuff[10])];
         room = self.rooms[0]
       else:
         self.rooms[i] = self.buildRoom(self.rooms[i-1])

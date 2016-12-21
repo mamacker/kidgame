@@ -87,8 +87,7 @@ def take(kid):
         print("You were healed " + str(item.health))
         kid.health = kid.health + item.health
       if item.isArmor:
-        print("This has a little armor value! You now have " + str(item.damage) + " more armor pts.")
-        kid.armor = kid.armor + item.damage
+        print("This has armor value! You now have " + str(item.damage) + " more armor pts.")
   
   if itemFound == False:
     print("There was nothing found!  Did you search the room?");
@@ -108,7 +107,7 @@ def fight(kid, monster):
         weapon = item;
 
   print("You decide to fight with " + weapon.desc + " " + weapon.name);
-  print("You have " + str(kid.health) + " health. And " + str(kid.armor) + " armor pts.")
+  print("You have " + str(kid.health) + " health. And " + str(kid.getArmorTotal()) + " armor pts.")
 
   while alive and monsterAlive:
     print "You swing with " + weapon.name;
@@ -133,11 +132,11 @@ def fight(kid, monster):
       if random.randint(0,1) == 1:
         damage = random.randint(1, monster.damage);
         print("and hits for " + str(damage) + "!!!")
-        if kid.armor > 0:
-          damage = damage - kid.armor;
+        if kid.getArmorTotal() > 0:
+          damage, taken = kid.assignArmorDamage(damage)
           if damage < 0:
             damage = 0
-          print("Your armor takes " + str(kid.armor) + " of it. You take " + str(damage) + " damage.")
+          print("Your armor takes " + str(taken) + " of it. You take " + str(damage) + " damage.")
         kid.health = kid.health - damage;
       else:
         print("and missed!!!")
