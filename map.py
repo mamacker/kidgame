@@ -31,6 +31,7 @@ class Map:
                     Stuff("lance of light","glowing", True, 8),
                     Stuff("bucket","stupid", True, 1),
                     Stuff("toothbrush of doom","scary", True, 5),
+                    Stuff("glove","the slapping", True, 2),
                     ]
   potentialCreature = [Creature("skeleton", "Dangerous", 2, 2),
                         Creature("dragon", "Deadly", 7, 5),
