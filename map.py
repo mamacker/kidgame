@@ -90,7 +90,7 @@ class Map:
         self.rooms[0] = Room();
         self.rooms[0].name = "start"
         self.rooms[0].desc = potentialDescriptions[random.randint(0, len(potentialDescriptions) -1)]
-        self.rooms[0].contents = [copy.deepcopy(self.potentialStuff[10])];
+        self.rooms[0].contents = [copy.deepcopy(self.potentialStuff[0])];
         room = self.rooms[0]
       else:
         self.rooms[i] = self.buildRoom(self.rooms[i-1])
