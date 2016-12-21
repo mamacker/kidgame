@@ -2,204 +2,17 @@ import random
 import time
 import re
 import copy
+import stuff
+import player
+import creature
+import room
+import map
 
-class Player:
-  name = "Kid"
-  desc = "Scruffy looking boy with a wirey frame."
-  stuff = []
-  health = 10
-  armor = 0
-  currentRoom = None;
-
-  def __init__(self):
-    stuff = []
-    health = 10
-
-class Stuff:
-  name = ""
-  desc = ""
-  isWeapon = False
-  damage = 1
-  visible = False
-  points = 0
-  isEdible= False
-  isArmor = False
-
-  def __init__(self, name, desc, isWeapon, damage, points = 1, 
-                health = 0, isEdible= False, isArmor = False):
-    self.name = name
-    self.desc = desc
-    self.isWeapon = isWeapon
-    self.damage = damage
-    self.points = points
-    self.isEdible= isEdible
-    self.health = health
-    self.isArmor = isArmor
-
-class Creature:
-  name = ""
-  desc = ""
-  damage = 1
-  visible = True
-  treasure = None
-
-  potentialTreasure = [
-
-    Stuff("gold coin","shiny", False, .2, 1),
-    Stuff("gold ring","shiny", False, .2, 2),
-    Stuff("gold idol","shiny", False, .2, 3),
-    Stuff("gold shoe","shiny", False, .2, 1),
-    Stuff("gold pacifier","shiny", False, .2, 2),
-    Stuff("sword","curved arabian", True, 6, 3),
-    Stuff("helmet","rusty", False, 2, 3, 9, False, True),
-    Stuff("chest plate","rusty", False, 4, 3, 0, False, True),
-    Stuff("gauntlet", "rusty", False, 1, 1, 0, False, True),
-    Stuff("gold tooth","shiny", False, .2, 1),
-    Stuff("golden crown","busted", False, .2, 5),
-    Stuff("health potion","magic", False, .2, 5, 5, True)
-  ]
-
-  def __init__(self, name, desc, damage, health = 0):
-    self.name = name
-    self.desc = desc
-    self.damage = damage
-    self.health = health
-    self.treasure = copy.deepcopy(self.potentialTreasure[random.randint(0,len(self.potentialTreasure) - 1)])
-
-class Room:
-  name = "standard"
-  desc = """long, cold and dark """
-  contents = []
-  people = []
-  treasure = None
-  doors = 0
-  left = None
-  right = None
-  forward = None
-  back = None
-
-  def createRoom(self, desc, contents, left, right, forward, back):
-    self.desc = desc
-    self.contents = contents
-    self.left = left
-    self.right = right
-    self.forward = forward
-    return self
-
-  def ctDoors(self):
-    ct = 0;
-    if (self.left): ct += 1
-    if (self.right): ct += 1
-    if (self.forward): ct += 1
-    return ct
-
-  def hasMonster(self):
-    for item in self.contents:
-      if isinstance(item, Creature):
-        return True
-    return False
-
-  def handleMonster(self, kid):
-    monster = None
-    for item in self.contents:
-      if isinstance(item, Creature):
-        monster = item
-    if not monster == None:
-      print("Oh no!  There is a: " + monster.desc + " " + monster.name)
-      return (kid, monster)
-    return kid, None
-
-class Map:
-  '''def __init__(self, name, desc, isWeapon, damage, points = 1, 
-                health = 0, isEdible = False, isArmor = False):'''
-  potentialStuff = [Stuff("knife", "rusty", True, 1),
-                    Stuff("gold coin","shiny", False, .2),
-                    Stuff("torch","Lasts about 1 hour", False, .5),
-                    Stuff("sword","rusty", True, 4),
-                    Stuff("staff","brutal", True, 3),
-                    Stuff("sword","shiny", True, 6),
-                    Stuff("broad sword","chipped", True, 5),
-                    Stuff("broad sword","shiny", True, 7),
-                    Stuff("dirt", "Smelly", False, .3),
-                    Stuff("gauntlet", "rusty", False, 1, 1, 0, False, True),
-                    Stuff("health potion","magic", False, .2, 5, 5, True),
-                    Stuff("boots of butt kicking","spikey", True, 8),
-                    ]
-  potentialCreature = [Creature("skeleton", "Dangerous", 2, 2),
-                        Creature("dragon", "Deadly", 7, 5),
-                        Creature("lizard", "Small", 1, 1),
-                        Creature("octopus", "slimy, creepy, crawly", 3, 15),
-                        Creature("glob", "slimy, acid, teenage", 10, 10),
-                        Creature("toad", "evil", 3, 10),
-                        Creature("troll", "dumb", 3, 15),
-                        Creature("dog", "vicious", 3, 3)
-                        ]
-  rooms = []
-
-  def __init__(self):
-    self.rooms = [Room() for i in range(200)];
-
-  def checkMap(self):
-    for room in rooms:
-      if not room.name == "start":
-        if room.back == None:
-          return False;
-    return True
-
-  def buildRoom(self, previous):
-    room = Room();
-    if random.randint(0,100) > 70:
-      room.contents = [copy.deepcopy(self.potentialStuff[random.randint(0,len(self.potentialStuff) - 1)])]
-    if random.randint(0,100) > 70:
-      if len(room.contents) == 0:
-        room.contents = []
-      room.contents.append(copy.deepcopy(self.potentialCreature[random.randint(0,len(self.potentialCreature) - 1)]))
-
-    room.back = previous
-    return room;
-
-  def generateRooms(self):
-    potentialDescriptions = [
-      "a dungeon.  Its a dirty, cold and dark room",
-      "a kitchen. Its a stinky and dusty room",
-      "a bathroom. It has a broken toilet.  You really don't like this room",
-      "a bedroom.  There is a shattered bed.  Its a scary room",
-      "the kings room.  There is a destroyed chest.  The throne is broken",
-      "another dungeon.  This one has a skeleton on the wall",
-      "weapon room.  Broken weapons lay strewn about.",
-      "a mud room.  There is no floor.  Its a gross room",
-      "a closet.  There is a hidden door broken open.  Its a small room",
-    ]
-    roomCt = 0;
-    for i in range(0, 100):
-      if i == 0:
-        self.rooms[0] = Room();
-        self.rooms[0].name = "start"
-        self.rooms[0].desc = potentialDescriptions[random.randint(0, len(potentialDescriptions) -1)]
-        self.rooms[0].contents = [copy.deepcopy(self.potentialStuff[0])];
-        room = self.rooms[0]
-      else:
-        self.rooms[i] = self.buildRoom(self.rooms[i-1])
-        self.rooms[i].desc = potentialDescriptions[random.randint(0, len(potentialDescriptions) -1)]
-        self.rooms[i-1].forward = self.rooms[i];
-        room = self.rooms[i]
-      roomCt += 1
-
-    #Build side rooms
-    for i in range(0,50):
-      roomIndex = random.randint(0, roomCt - 1);
-      if self.rooms[roomIndex].left == None:
-        self.rooms[roomIndex].left = self.buildRoom(self.rooms[roomIndex])
-        self.rooms[roomCt] = self.rooms[roomIndex].left;
-      if self.rooms[roomIndex].right == None:
-        self.rooms[roomIndex].right = self.buildRoom(self.rooms[roomIndex])
-        self.rooms[roomCt] = self.rooms[roomIndex].right;
-      roomCt += 1;
-
-    self.rooms[roomCt - 1].name = "End";
-
-    print("There are now: " + str(roomCt) + " rooms.");
-
+Stuff = stuff.Stuff
+Player = player.Player
+Creature = creature.Creature
+Room = room.Room
+Map = map.Map
 
 map = None;
 
@@ -395,7 +208,6 @@ def actionPrompt(kid):
   print('\n--------------------------------------------------');
   print('You are in ' + kid.currentRoom.desc + '.  It has ' + str(kid.currentRoom.ctDoors()) + " exits.");
   print('You can search the room.');
-
   if (kid.currentRoom.hasMonster() == True):
     kid, monster = kid.currentRoom.handleMonster(kid);
     kid = handleMonsterAction(kid, monster);
@@ -491,13 +303,13 @@ while playAgain == 'yes' or playAgain == 'y':
   kid.stuff = []
   kid.currentRoom = map.rooms[0];
 
-  try:
-    while not kid.currentRoom.name == "End":
-      kid = chooseRoom(kid)
+  #try:
+  while not kid.currentRoom.name == "End":
+    kid = chooseRoom(kid)
 
-    playAgain = raw_input('Do you want to play again? (yes or no)\r\n');
-  except:
-    playAgain = "no"
+  playAgain = raw_input('Do you want to play again? (yes or no)\r\n');
+  #except:
+  #  playAgain = "no"
     
 
 print ("\n\nGoodbye!");
