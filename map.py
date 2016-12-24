@@ -33,7 +33,7 @@ class Map:
                     Stuff("toothbrush of doom","scary", True, 5),
                     Stuff("glove","the slapping", True, 2),
                     ]
-  potentialCreature = [Creature("skeleton", "Dangerous", 2, 2),
+  potentialCreature = [Creature("skeleton", "Dangerous", 2, 2, 5, Creature.creatureArt["skeleton"]),
                         Creature("dragon", "Deadly", 7, 5, 7, Creature.creatureArt["dragon"]),
                         Creature("lizard", "Small", 1, 1, 5, Creature.creatureArt["lizard"]),
                         Creature("octopus", "slimy, creepy, crawly", 3, 15, 5, Creature.creatureArt["octopus"]),
