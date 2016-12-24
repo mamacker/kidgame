@@ -34,19 +34,19 @@ class Map:
                     Stuff("glove","the slapping", True, 2),
                     ]
   potentialCreature = [Creature("skeleton", "Dangerous", 2, 2),
-                        Creature("dragon", "Deadly", 7, 5),
-                        Creature("lizard", "Small", 1, 1),
-                        Creature("octopus", "slimy, creepy, crawly", 3, 15),
+                        Creature("dragon", "Deadly", 7, 5, 7, Creature.creatureArt["dragon"]),
+                        Creature("lizard", "Small", 1, 1, 5, Creature.creatureArt["lizard"]),
+                        Creature("octopus", "slimy, creepy, crawly", 3, 15, 5, Creature.creatureArt["octopus"]),
                         Creature("glob", "slimy, acid, teenage", 10, 10),
-                        Creature("toad", "evil", 3, 10),
+                        Creature("toad", "evil", 3, 10, 4, Creature.creatureArt["toad"]),
                         Creature("troll", "dumb", 3, 15, 3),
                         Creature("pumpkin", "grinning", 3, 5),
                         Creature("dog", "vicious", 3, 3, 6),
-                        Creature("nat", "tiny", 3, 1, 8),
-                        Creature("nat", "medium", 3, 2, 8),
-                        Creature("nat", "collosal", 4, 2, 8),
-                        Creature("goat", "psyco", 3, 2, 10),
-                        Creature("kitten", "kuddle", 1, 20),
+                        Creature("gnat", "tiny", 3, 1, 8, Creature.creatureArt["gnat"]),
+                        Creature("gnat", "medium", 3, 2, 8, Creature.creatureArt["gnat"]),
+                        Creature("gnat", "collosal", 4, 2, 8, Creature.creatureArt["gnat"]),
+                        Creature("goat", "psyco", 3, 2, 10, Creature.creatureArt["goat"]),
+                        Creature("kitten", "kuddle", 1, 20, 5, Creature.creatureArt["cat"]),
                         ]
   rooms = []
 

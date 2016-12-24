@@ -4,13 +4,75 @@ import random
 
 Stuff = stuff.Stuff
 
+
 class Creature:
+  creatureArt = {
+    "gnat": """
+   \__/
+   (oo)
+  //||\\\\""",
+    "octopus": """
+   ,---.
+  ( @ @ )
+   ).-.(
+  '/|||\`
+    '|`  
+  """,
+    "lizard": """
+              ___   
+       )/_  ,@  /   
+       |(_,' _@/    
+       |    /       
+  \\)/ /    (_)/     
+  ((_/   ,----~     
+   \\    (_)/        
+   / ,-----~        
+  (('  _,-.         
+   \\\\=//   
+  """,
+    "cat": """
+  /\\___/\\
+  \\ -.- /
+  `-.^.-'
+  """,
+    "dragon": """
+    .     _///_,
+   .      / ` ' '>
+     )   o'  __/_'>
+    (   /  _/  )_\\'>
+     ' "__/   /_/\\_>
+         ____/_/_/_/
+        /,---, _/ /
+       ""  /_/_/_/
+          /_(_(_(_                 \\
+         (   \\_\\_\\\\_               )\\
+          \\'__\\_\\_\\_\\__            ).\\
+          //____|___\\__)           )_/
+          |  _  \\'___'_(           /'
+           \\_ (-'\\'___'_\\      __,'_'
+           __) \\  \\\\___(_   __/.__,'
+        ,((,-,__\\  '", __\\_/. __,'
+                     '"./_._._-'
+  """,
+    "goat": """
+(_(
+/_/'_____/)
+"  |      |
+   |""""""| 
+  """,
+    "toad": """
+     @..@        
+    (\--/)      
+   (.>__<.)               
+   ^^^  ^^^
+    """,};
   name = ""
   desc = ""
   damage = 1
   visible = True
   treasure = None
   dexterity = 5
+  art = None
 
   potentialTreasure = [
     Stuff("gold coin","shiny", False, .2, 1),
@@ -27,10 +89,11 @@ class Creature:
     Stuff("health potion","magic", False, .2, 5, 5, True)
   ]
 
-  def __init__(self, name, desc, damage, health = 0, dexterity = 5):
+  def __init__(self, name, desc, damage, health = 0, dexterity = 5, art = None):
     self.name = name
     self.desc = desc
     self.damage = damage
     self.health = health
+    self.art = art
     self.treasure = copy.deepcopy(self.potentialTreasure[random.randint(0,len(self.potentialTreasure) - 1)])
 

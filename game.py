@@ -7,6 +7,7 @@ import player
 import creature
 import room
 import map
+import os
 
 Stuff = stuff.Stuff
 Player = player.Player
@@ -20,6 +21,11 @@ def buildMap():
   global map;
   map = Map()
   map.generateRooms();
+
+def clearScreen():
+  os.system('cls')
+  os.system('clear')
+
 
 def goLeft(kid):
   if kid.currentRoom.left != None:
@@ -211,6 +217,8 @@ def actionPrompt(kid):
   print('You can search the room.');
   if (kid.currentRoom.hasMonster() == True):
     kid, monster = kid.currentRoom.handleMonster(kid);
+    if monster.art != None:
+      print monster.art
     kid = handleMonsterAction(kid, monster);
 
     if kid.currentRoom.name == "End":
@@ -245,7 +253,8 @@ def chooseRoom(kid):
     if kid.currentRoom.name == "End":
       result = kid
       break
-
+  
+    clearScreen()
     print "---------------------------------------------------------------"
     print "\nYou entered: " + action
 
