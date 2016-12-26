@@ -105,6 +105,12 @@ class Creature:
     Stuff("health potion","magic", False, .2, 5, 5, True)
   ]
 
+  potentialCreature = []
+
+  @staticmethod
+  def getRandomCreature():
+    return copy.deepcopy(Creature.potentialCreature[random.randint(0,len(Creature.potentialCreature) - 1)])
+
   def __init__(self, name, desc, damage, health = 0, dexterity = 5, art = None):
     self.name = name
     self.desc = desc
@@ -113,3 +119,20 @@ class Creature:
     self.art = art
     self.treasure = copy.deepcopy(self.potentialTreasure[random.randint(0,len(self.potentialTreasure) - 1)])
 
+
+Creature.potentialCreature = [
+  Creature("skeleton", "Dangerous", 2, 2, 5, Creature.creatureArt["skeleton"]),
+  Creature("dragon", "Deadly", 7, 5, 7, Creature.creatureArt["dragon"]),
+  Creature("lizard", "Small", 1, 1, 5, Creature.creatureArt["lizard"]),
+  Creature("octopus", "slimy, creepy, crawly", 3, 15, 5, Creature.creatureArt["octopus"]),
+  Creature("glob", "slimy, acid, teenage", 10, 10),
+  Creature("toad", "evil", 3, 10, 4, Creature.creatureArt["toad"]),
+  Creature("troll", "dumb", 3, 15, 3),
+  Creature("pumpkin", "grinning", 3, 5),
+  Creature("dog", "vicious", 3, 3, 6),
+  Creature("gnat", "tiny", 3, 1, 8, Creature.creatureArt["gnat"]),
+  Creature("gnat", "medium", 3, 2, 8, Creature.creatureArt["gnat"]),
+  Creature("gnat", "collosal", 4, 2, 8, Creature.creatureArt["gnat"]),
+  Creature("goat", "psyco", 3, 2, 10, Creature.creatureArt["goat"]),
+  Creature("kitten", "kuddle", 1, 20, 5, Creature.creatureArt["cat"]),
+]
