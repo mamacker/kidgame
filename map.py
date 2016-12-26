@@ -12,9 +12,8 @@ Room = room.Room
 Player = player.Player
 
 class Map:
-  '''def __init__(self, name, desc, isWeapon, damage, points = 1, 
-                health = 0, isEdible = False, isArmor = False):'''
   rooms = []
+  maxRoomWidth = 0
 
   def __init__(self):
     self.rooms = [Room() for i in range(300)];
@@ -68,4 +67,67 @@ class Map:
     self.rooms[roomCt - 1].name = "End";
 
     print("There are now: " + str(roomCt) + " rooms.");
+
+  def updateVisited(self, kid):
+    kid.currentRoom.visited = True
+
+  def walkMap(self, room):
+    if room.left:
+      print("/")
+      room.left.distFromCenterHall = room.distFromCenterHall + 1;
+      if abs(maxRoomWidth) < abs(room.left.distFromCenterHall):
+        maxRoomWidth = abs(room.left.distFromCenterHall)
+      self.walkMap(room.left);
+
+    print("-")
+
+    if room.right:
+      print("\\")
+      room.right.distFromCenterHall = room.distFromCenterHall + 1;
+      if abs(maxRoomWidth) < abs(room.right.distFromCenterHall):
+        maxRoomWidth = abs(room.right.distFromCenterHall)
+      self.walkMap(room.right)
+  
+  def updateMap(self, kid):
+    self.updateVisited(kid);
+    room = self.rooms[0]
+    self.walkMap(room);
+
+  def goLeft(self, kid):
+    returnVal = kid;
+    if kid.currentRoom.left != None:
+      kid.currentRoom = kid.currentRoom.left
+    else:
+      returnVal = None
+
+    self.updateMap(kid);
+    return returnVal
+
+  def goRight(self, kid):
+    returnVal = kid;
+    if kid.currentRoom.right != None:
+      kid.currentRoom = kid.currentRoom.right
+    else:
+      returnVal = None
+    self.updateMap(kid);
+    return returnVal
+
+  def goForward(self, kid):
+    returnVal = kid;
+    if kid.currentRoom.forward != None:
+      kid.currentRoom = kid.currentRoom.forward
+    else:
+      returnVal = None
+    self.updateMap(kid);
+    return returnVal
+
+  def goBack(self, kid):
+    returnVal = kid;
+    if kid.currentRoom.back != None:
+      kid.currentRoom = kid.currentRoom.back
+    else:
+      print "You can't go back!"
+      returnVal = None
+    self.updateMap(kid);
+    return returnVal
 

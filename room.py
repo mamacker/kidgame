@@ -17,6 +17,8 @@ class Room:
   right = None
   forward = None
   back = None
+  visited = False
+  distFromCenterHall = 0
 
   @staticmethod
   def buildRoom(previous):

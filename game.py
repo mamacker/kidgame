@@ -26,36 +26,6 @@ def clearScreen():
   os.system('cls')
   os.system('clear')
 
-
-def goLeft(kid):
-  if kid.currentRoom.left != None:
-    kid.currentRoom = kid.currentRoom.left
-  else:
-    return None
-  return kid
-
-def goRight(kid):
-  if kid.currentRoom.right != None:
-    kid.currentRoom = kid.currentRoom.right
-  else:
-    return None
-  return kid
-
-def goForward(kid):
-  if kid.currentRoom.forward != None:
-    kid.currentRoom = kid.currentRoom.forward
-  else:
-    return None
-  return kid
-
-def goBack(kid):
-  if kid.currentRoom.back != None:
-    kid.currentRoom = kid.currentRoom.back
-  else:
-    print "You can't go back!"
-    return None
-  return kid
-
 def search(kid):
   room = kid.currentRoom;
   contents = room.contents
@@ -272,18 +242,18 @@ def chooseRoom(kid):
 
     def f(x):
       return {
-        'left': goLeft,
-        'l': goLeft,
-        'go left': goLeft,
-        'right': goRight,
-        'r': goRight,
-        'go right': goRight,
-        'forward': goForward,
-        'go forward': goForward,
-        'f': goForward,
-        'back': goBack,
-        'go back': goBack,
-        'b': goBack,
+        'left': map.goLeft,
+        'l': map.goLeft,
+        'go left': map.goLeft,
+        'right': map.goRight,
+        'r': map.goRight,
+        'go right': map.goRight,
+        'forward': map.goForward,
+        'go forward': map.goForward,
+        'f': map.goForward,
+        'back': map.goBack,
+        'go back': map.goBack,
+        'b': map.goBack,
         'search': search,
         's': search,
         'search the room': search,
