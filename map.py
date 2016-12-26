@@ -26,17 +26,6 @@ class Map:
           return False;
     return True
 
-  def buildRoom(self, previous):
-    room = Room();
-    if random.randint(0,100) > 70:
-      room.contents = [Stuff.getRandomStuff()]
-    if random.randint(0,100) > 70:
-      if len(room.contents) == 0:
-        room.contents = []
-      room.contents.append(Creature.getRandomCreature())
-
-    room.back = previous
-    return room;
 
   def generateRooms(self):
     potentialDescriptions = [
@@ -59,7 +48,7 @@ class Map:
         self.rooms[0].contents = [Stuff.getRandomStuff()];
         room = self.rooms[0]
       else:
-        self.rooms[i] = self.buildRoom(self.rooms[i-1])
+        self.rooms[i] = Room.buildRoom(self.rooms[i-1])
         self.rooms[i].desc = potentialDescriptions[random.randint(0, len(potentialDescriptions) -1)]
         self.rooms[i-1].forward = self.rooms[i];
         room = self.rooms[i]
@@ -69,10 +58,10 @@ class Map:
     for i in range(0,50):
       roomIndex = random.randint(0, roomCt - 1);
       if self.rooms[roomIndex].left == None:
-        self.rooms[roomIndex].left = self.buildRoom(self.rooms[roomIndex])
+        self.rooms[roomIndex].left = Room.buildRoom(self.rooms[roomIndex])
         self.rooms[roomCt] = self.rooms[roomIndex].left;
       if self.rooms[roomIndex].right == None:
-        self.rooms[roomIndex].right = self.buildRoom(self.rooms[roomIndex])
+        self.rooms[roomIndex].right = Room.buildRoom(self.rooms[roomIndex])
         self.rooms[roomCt] = self.rooms[roomIndex].right;
       roomCt += 1;
 
