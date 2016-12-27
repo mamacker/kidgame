@@ -73,19 +73,19 @@ class Map:
 
   def walkMap(self, room):
     if room.left:
-      print("/")
+      #print("/")
       room.left.distFromCenterHall = room.distFromCenterHall + 1;
-      if abs(maxRoomWidth) < abs(room.left.distFromCenterHall):
-        maxRoomWidth = abs(room.left.distFromCenterHall)
+      if abs(self.maxRoomWidth) < abs(room.left.distFromCenterHall):
+        self.maxRoomWidth = abs(room.left.distFromCenterHall)
       self.walkMap(room.left);
 
-    print("-")
+    #print("-")
 
     if room.right:
-      print("\\")
+      #print("\\")
       room.right.distFromCenterHall = room.distFromCenterHall + 1;
-      if abs(maxRoomWidth) < abs(room.right.distFromCenterHall):
-        maxRoomWidth = abs(room.right.distFromCenterHall)
+      if abs(self.maxRoomWidth) < abs(room.right.distFromCenterHall):
+        self.maxRoomWidth = abs(room.right.distFromCenterHall)
       self.walkMap(room.right)
   
   def updateMap(self, kid):
