@@ -19,7 +19,7 @@ class Map:
     self.rooms = [Room() for i in range(300)];
 
   def checkMap(self):
-    for room in rooms:
+    for room in self.rooms:
       if not room.name == "start":
         if room.back == None:
           return False;
@@ -44,7 +44,7 @@ class Map:
         self.rooms[0] = Room();
         self.rooms[0].name = "start"
         self.rooms[0].desc = potentialDescriptions[random.randint(0, len(potentialDescriptions) -1)]
-        self.rooms[0].contents = [Stuff.getRandomStuff()];
+        self.rooms[0].contents = [Stuff.potentialStuff[0]];
         room = self.rooms[0]
       else:
         self.rooms[i] = Room.buildRoom(self.rooms[i-1])
@@ -65,6 +65,7 @@ class Map:
       roomCt += 1;
 
     self.rooms[roomCt - 1].name = "End";
+    self.walkMap(self.rooms[0]);
 
     print("There are now: " + str(roomCt) + " rooms.");
 
@@ -73,25 +74,24 @@ class Map:
 
   def walkMap(self, room):
     if room.left:
-      #print("/")
       room.left.distFromCenterHall = room.distFromCenterHall + 1;
       if abs(self.maxRoomWidth) < abs(room.left.distFromCenterHall):
         self.maxRoomWidth = abs(room.left.distFromCenterHall)
       self.walkMap(room.left);
 
-    #print("-")
-
     if room.right:
-      #print("\\")
-      room.right.distFromCenterHall = room.distFromCenterHall + 1;
+      room.right.distFromCenterHall = room.distFromCenterHall - 1;
       if abs(self.maxRoomWidth) < abs(room.right.distFromCenterHall):
         self.maxRoomWidth = abs(room.right.distFromCenterHall)
       self.walkMap(room.right)
   
+  def drawMap(self, room):
+    return 
+
   def updateMap(self, kid):
     self.updateVisited(kid);
     room = self.rooms[0]
-    self.walkMap(room);
+    self.drawMap(room);
 
   def goLeft(self, kid):
     returnVal = kid;
