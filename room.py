@@ -18,14 +18,21 @@ class Room:
   forward = None
   back = None
   visited = False
-  distFromCenterHall = 0
+  depth = 0 # Distance from room 0 starting from left.
+  height = 0 # Distance away from center hall
+  drawn = False
 
   @staticmethod
   def buildRoom(previous):
     room = Room();
     if random.randint(0,100) > 70:
       room.contents = [Stuff.getRandomStuff()]
-    if random.randint(0,100) > 70:
+
+    monsterChance = 70 - previous.depth;
+    if monsterChance < 50:
+      monsterChance = 50
+
+    if random.randint(0,100) > monsterChance:
       if len(room.contents) == 0:
         room.contents = []
       room.contents.append(Creature.getRandomCreature())

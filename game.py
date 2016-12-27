@@ -86,17 +86,17 @@ def fight(kid, monster):
   print("You have " + str(kid.health) + " health. And " + str(kid.getArmorTotal()) + " armor pts.")
 
   while alive and monsterAlive:
-    print "You swing with " + weapon.name;
+    print("You swing with " + weapon.name)
     time.sleep(2)
     
     if random.randint(0,10) >= monster.dexterity:
-      print " and hit!"
+      print(" and hit!")
       monster.health = monster.health - random.randint(1, weapon.damage);
     else:
-      print " and, ooooh noooo, miss!"
+      print(" and, ooooh noooo, miss!")
 
     time.sleep(2)
-    print "The " + monster.name +" has " + str(monster.health) + " health left!";
+    print("The " + monster.name +" has " + str(monster.health) + " health left!")
     time.sleep(2)
     if monster.health < 1:
       monsterAlive = False;
@@ -119,51 +119,51 @@ def fight(kid, monster):
 
       time.sleep(2)
       if kid.health <= 0:
-        print "XXXXXXXXXXXXXXXXXXXXXXXXXXX :( XXXXXXXXXXXXXXXXXXXXXXXXXX"
-        print "Oh no!!!";
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXX :( XXXXXXXXXXXXXXXXXXXXXXXXXX")
+        print("Oh no!!!")
         time.sleep(2)
-        print "You died!!!"
+        print("You died!!!")
         alive = False;
       else:
-        print "You lived!!!"
+        print("You lived!!!")
         print("You have " + str(kid.health) + " health left.")
 
     time.sleep(2)
 
   if alive:
-    print "!!!!!!!!!!!!!!!!!!!!!! Yay! !!!!!!!!!!!!!!!!!!!!!!!!!"
-    print "You have defeated the " + monster.name
+    print("!!!!!!!!!!!!!!!!!!!!!! Yay! !!!!!!!!!!!!!!!!!!!!!!!!!")
+    print("You have defeated the " + monster.name)
     kid.currentRoom.contents.append(monster.treasure);
     kid.currentRoom.contents.remove(monster)
-    print "You should probably search the room!";
+    print("You should probably search the room!")
   else:
-    print "The " + monster.name + " has killed you.  So, very, very sad..."
+    print("The " + monster.name + " has killed you.  So, very, very sad...")
     points = 0;
     for item in kid.stuff:
       if item.points:
-        print "You had a " + item.name;
+        print("You had a " + item.name)
         points = points + item.points
-    print "But... you got " + str(points) + " points!!! Well done!"
+    print("But... you got " + str(points) + " points!!! Well done!")
     kid.currentRoom.name = "End"
   
   return kid;
 
 def runAway(kid, monster):
-  print "You try..."
+  print("You try...")
   time.sleep(2)
-  print "You made it!!!"
+  print("You made it!!!")
   kid.currentRoom = kid.currentRoom.back;
   return kid;
 
 def handleMonsterAction(kid, monster):
-  print "<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>";
-  print "The monster wont let you pass!!!"
+  print("<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>")
+  print("The monster wont let you pass!!!")
   func = None
   while func == None:
-    print "You can try to run - but the monster might kill you."
-    print "You can try to fight - but the battle will be gruelling."
-    print "What do you want to do?"
-    action = str(raw_input("(fight or run)> "))
+    print("You can try to run - but the monster might kill you.")
+    print("You can try to fight - but the battle will be gruelling.")
+    print("What do you want to do?")
+    action = str(input("(fight or run)> "))
     
     def f(x):
       return {
@@ -188,7 +188,7 @@ def actionPrompt(kid):
   if (kid.currentRoom.hasMonster() == True):
     kid, monster = kid.currentRoom.handleMonster(kid);
     if monster.art != None:
-      print monster.art
+      print(monster.art)
     kid = handleMonsterAction(kid, monster);
 
     if kid.currentRoom.name == "End":
@@ -201,7 +201,7 @@ def actionPrompt(kid):
   for thing in kid.currentRoom.contents:
     if not isinstance(thing, Creature) and thing.visible == True:
       print("You can take " + thing.desc + " " + thing.name);
-  action = str(raw_input("> "))
+  action = str(input("> "))
   return action
 
 def inventory(kid):
@@ -225,8 +225,8 @@ def chooseRoom(kid):
       break
   
     clearScreen()
-    print "---------------------------------------------------------------"
-    print "\nYou entered: " + action
+    print("---------------------------------------------------------------")
+    print("\nYou entered: " + action)
 
     if re.match(r'take', action, re.I):
       action = "take"
@@ -235,9 +235,9 @@ def chooseRoom(kid):
       points = 0;
       for item in kid.stuff:
         if item.points:
-          print "You had a " + item.name;
+          print("You had a " + item.name)
           points = points + item.points
-      print "You got " + str(points) + " points!!! Well done!"
+      print("You got " + str(points) + " points!!! Well done!")
       raise
 
     def f(x):
@@ -266,7 +266,8 @@ def chooseRoom(kid):
         'health': health,
         'h':health,
         'quit': quit,
-        'q': quit
+        'q': quit,
+        'm': map.drawMap
       }.get(x, None)
     func = f(action);
     if func == None:
@@ -276,18 +277,22 @@ def chooseRoom(kid):
       result = f(action)(kid)
   return result
 
+clearScreen();
 playAgain = 'yes'
 while playAgain == 'yes' or playAgain == 'y':
   buildMap();
   kid = Player();
   kid.stuff = []
   kid.currentRoom = map.rooms[0];
+  kid.currentRoom.visited = True;
+  map.drawMap(kid)
 
   #try:
   while not kid.currentRoom.name == "End":
     kid = chooseRoom(kid)
 
-  playAgain = raw_input('Do you want to play again? (yes or no)\r\n');
+  print("Room name: " + kid.currentRoom.name);
+  playAgain = input('Do you want to play again? (yes or no)\r\n');
   #except:
   #  playAgain = "no"
     

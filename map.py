@@ -13,10 +13,7 @@ Player = player.Player
 
 class Map:
   rooms = []
-  maxRoomWidth = 0
-
-  def __init__(self):
-    self.rooms = [Room() for i in range(300)];
+  roomDrawGrid = []
 
   def checkMap(self):
     for room in self.rooms:
@@ -39,59 +36,100 @@ class Map:
       "a closet.  There is a hidden door broken open.  Its a small room",
     ]
     roomCt = 0;
-    for i in range(0, 100):
+    for i in range(0, 50):
       if i == 0:
-        self.rooms[0] = Room();
-        self.rooms[0].name = "start"
-        self.rooms[0].desc = potentialDescriptions[random.randint(0, len(potentialDescriptions) -1)]
-        self.rooms[0].contents = [Stuff.potentialStuff[0]];
-        room = self.rooms[0]
+        self.rooms.append(Room());
+        firstRoom = self.rooms[0];
+        firstRoom.name = "start"
+        firstRoom.desc = potentialDescriptions[random.randint(0, len(potentialDescriptions) -1)]
+        firstRoom.contents = [Stuff.potentialStuff[0]];
+        firstRoom.height = 4;
+        firstRoom.depth = 0;
+        room = firstRoom;
       else:
-        self.rooms[i] = Room.buildRoom(self.rooms[i-1])
-        self.rooms[i].desc = potentialDescriptions[random.randint(0, len(potentialDescriptions) -1)]
-        self.rooms[i-1].forward = self.rooms[i];
-        room = self.rooms[i]
+        curRoom = Room.buildRoom(self.rooms[i-1]);
+        self.rooms.append(curRoom)
+        curRoom.desc = potentialDescriptions[random.randint(0, len(potentialDescriptions) -1)]
+        self.rooms[i-1].forward = curRoom
+        curRoom.depth = roomCt;
+        room = curRoom
       roomCt += 1
 
+    lastRoom = self.rooms[roomCt-1];
+    lastRoom.name = "End";
+    lastRoom.contents.append(Creature.getRandomCreature())
+
     #Build side rooms
-    for i in range(0,50):
+    for i in range(0,25):
       roomIndex = random.randint(0, roomCt - 1);
       if self.rooms[roomIndex].left == None:
         self.rooms[roomIndex].left = Room.buildRoom(self.rooms[roomIndex])
-        self.rooms[roomCt] = self.rooms[roomIndex].left;
+        self.rooms[roomIndex].left.depth = self.rooms[roomIndex].depth;
+        self.rooms.append(self.rooms[roomIndex].left);
       if self.rooms[roomIndex].right == None:
         self.rooms[roomIndex].right = Room.buildRoom(self.rooms[roomIndex])
-        self.rooms[roomCt] = self.rooms[roomIndex].right;
+        self.rooms[roomIndex].right.depth = self.rooms[roomIndex].depth;
+        self.rooms.append(self.rooms[roomIndex].right);
+        
       roomCt += 1;
 
-    self.rooms[roomCt - 1].name = "End";
     self.walkMap(self.rooms[0]);
-
-    print("There are now: " + str(roomCt) + " rooms.");
+    self.drawMap();
 
   def updateVisited(self, kid):
     kid.currentRoom.visited = True
 
   def walkMap(self, room):
+    room.drawn = True;
     if room.left:
-      room.left.distFromCenterHall = room.distFromCenterHall + 1;
-      if abs(self.maxRoomWidth) < abs(room.left.distFromCenterHall):
-        self.maxRoomWidth = abs(room.left.distFromCenterHall)
+      room.left.height = room.height - 2;
+      room.left.depth = room.depth + 1;
       self.walkMap(room.left);
 
+    if room.forward:
+      room.forward.depth = room.depth + 2;
+      room.forward.height = room.height;
+      self.walkMap(room.forward)
+
     if room.right:
-      room.right.distFromCenterHall = room.distFromCenterHall - 1;
-      if abs(self.maxRoomWidth) < abs(room.right.distFromCenterHall):
-        self.maxRoomWidth = abs(room.right.distFromCenterHall)
+      room.right.height = room.height + 1;
+      room.right.depth = room.depth + 1;
       self.walkMap(room.right)
   
-  def drawMap(self, room):
+  def drawMap(self, kid = None):
+    maxDepth = 0
+    for room in self.rooms:
+      if maxDepth < room.depth:
+        maxDepth = room.depth
+
+    maxHeight = 0
+    minHeight = 15
+    for room in self.rooms:
+      if maxHeight < room.height:
+        maxHeight = room.height
+      if room.height != 0 and room.height < minHeight:
+        minHeight = room.height;
+
+    for y in range(0, maxHeight + 1):
+      print('');
+      for x in range(0, maxDepth + 1):
+        foundOne = False
+        for room in self.rooms:
+          if room.height == y and room.depth == x:
+            if room.visited:
+              foundOne = True
+              if kid.currentRoom == room:
+                print('P', end="")
+              else: 
+                print('*', end="")
+        if not foundOne:
+          print(' ', end="")
     return 
 
   def updateMap(self, kid):
     self.updateVisited(kid);
     room = self.rooms[0]
-    self.drawMap(room);
+    self.drawMap(kid);
 
   def goLeft(self, kid):
     returnVal = kid;
@@ -126,7 +164,7 @@ class Map:
     if kid.currentRoom.back != None:
       kid.currentRoom = kid.currentRoom.back
     else:
-      print "You can't go back!"
+      print("You can't go back!")
       returnVal = None
     self.updateMap(kid);
     return returnVal
