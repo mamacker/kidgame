@@ -121,7 +121,7 @@ class Creature:
     self.treasure = copy.deepcopy(self.potentialTreasure[random.randint(0,len(self.potentialTreasure) - 1)])
 
 
-""" Name and description of the creature are show when a battle starts. """
+""" Name and description of the creature are shown when a battle starts. """
 """ Desc is the description. """
 """ Damage - is the max amount of potential damage a monster can do. """
 """ Health - is how many hits of damage the creature can take before dying. """
