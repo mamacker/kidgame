@@ -4,6 +4,7 @@ import random
 
 Stuff = stuff.Stuff
 
+""" This is the file to edit if you'd like to add a monster, or a potential bit of treassure! """
 
 class Creature:
   creatureArt = {
