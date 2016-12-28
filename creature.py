@@ -78,7 +78,7 @@ class Creature:
     """,
     "toad": """
      @..@        
-    (\--/)      
+    (\\--/)      
    (.>__<.)               
    ^^^  ^^^
     """,};
@@ -121,6 +121,13 @@ class Creature:
 
 
 Creature.potentialCreature = [
+  """ Name and description of the creature are show when a battle starts. """
+  """ Desc is the description. """
+  """ Damage - is the max amount of potential damage a monster can do. """
+  """ Health - is how many hits of damage the creature can take before dying. """
+  """ Dexterity - controls how hard it is to hit a creature. 5 is average, higher numbers are more difficult to hit. """
+  """ Art - the ascii art that will be drawn when the battle starts! """
+  """name, desc, damage, health = 0, dexterity = 5, art = None """
   Creature("skeleton", "Dangerous", 2, 2, 5, Creature.creatureArt["skeleton"]),
   Creature("dragon", "Deadly", 7, 5, 7, Creature.creatureArt["dragon"]),
   Creature("lizard", "Small", 1, 1, 5, Creature.creatureArt["lizard"]),
