@@ -19,7 +19,11 @@ Unless you have python mapped to python3, then its just:
 >                                                                                                   
 >                                                                                                   
 >--------------------------------------------------
+
 >You are in weapon room.  Broken weapons lay strewn about..  It has 1 exits.
+
 >You can search the room.
+
 >You can go forward.
+
 >> 
